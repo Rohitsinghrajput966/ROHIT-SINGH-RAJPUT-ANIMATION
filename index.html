@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Portfolio - React Style</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background: linear-gradient( 135deg,#667eea 0%, #764ba2 100%);
+            animation: backgroundShift 8s ease-in-out infinite alternate-reverse;
+        }
+        @keyframes backgroundShift {
+            from { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+            to { background: linear-gradient(135deg, #764ba2 0%, #667eea 100%); }
+        }
+        .hero-section {
+            
+            backdrop-filter: blur(10px);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            animation: heroAnimation 2s ease-out forwards;
+        }
+        @keyframes heroAnimation {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+        .animate-on-scroll.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .skill-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            animation: skillPulse 2s ease-in-out infinite alternate;
+        }
+        @keyframes skillPulse {
+            from { box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
+            to { box-shadow: 0 0 30px rgba(255, 255, 255, 0.3); }
+        }
+        .skill-card:hover {
+            transform: scale(1.05);
+        }
+        .project-card {
+            transition: all 0.3s ease;
+            animation: projectEntrance 0.8s ease-out forwards;
+        }
+        @keyframes projectEntrance {
+            0% { transform: rotateY(90deg); opacity: 0; }
+            100% { transform: rotateY(0); opacity: 1; }
+        }
+        .project-card:hover {
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        .contact-form input, .contact-form textarea {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        .floating-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .typing-effect::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-black/20 backdrop-blur-md z-50 border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="text-2xl font-bold text-white">ROHIT SINGH RAJPUT</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#hero" class="text-white/80 hover:text-white transition duration-300">Home</a>
+                    <a href="#about" class="text-white/80 hover:text-white transition duration-300">About</a>
+                    <a href="#skills" class="text-white/80 hover:text-white transition duration-300">Skills</a>
+                    <a href="#projects" class="text-white/80 hover:text-white transition duration-300">Projects</a>
+                    <a href="#contact" class="text-white/80 hover:text-white transition duration-300">Contact</a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden text-white">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden bg-white/10 backdrop-blur-md rounded p-4">
+                <a href="#hero" onclick="closeMenu()" class="block py-2 text-white/80 hover:text-white">Home</a>
+                <a href="#about" onclick="closeMenu()" class="block py-2 text-white/80 hover:text-white">About</a>
+                <a href="#skills" onclick="closeMenu()" class="block py-2 text-white/80 hover:text-white">Skills</a>
+                <a href="#projects" onclick="closeMenu()" class="block py-2 text-white/80 hover:text-white">Projects</a>
+                <a href="#contact" onclick="closeMenu()" class="block py-2 text-white/80 hover:text-white">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section min-h-screen flex flex-col justify-center items-center text-center px-4 pt-16">
+        <div class="max-w-4xl mx-auto">
+            <img src="IMG_9017.JPG" alt="Dynamic profile image of a creative developer with animated code patterns radiating from the portrait in a futuristic digital style" class="rounded-full mx-auto mb-8 w-48 h-48 border-4 border-white/20 shadow-2xl floating-icon">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4 animate-on-scroll">
+                Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-pink-600"> ROHIT SINGH RAJPUT </span>
+            </h1>
+            <p class="text-xl md:text-2xl mb-6 animate-on-scroll">
+                Frontend Developer & UI/UX
+            </p>
+            <p class="text-lg mb-8 animate-on-scroll max-w-2xl mx-auto">
+                Crafting beautiful, responsive web experiences with React, animations, and modern technologies.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-on-scroll">
+                <a href="#projects" class="bg-white text-purple-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300">View My Work</a>
+                <a href="#contact" class="border border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition duration-300">Get In Touch</a>
+                <a href="ROHIT SINGH RAJPUT CV (3) - Shortcut.lnk" class="border border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition duration-300">Resume</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 bg-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="animate-on-scroll">
+                    <h2 class="text-4xl font-bold mb-3">About Me</h2>
+                    <p class="text-lg mb-6 text-white/90">
+                        🚀 Aspiring Full-Stack Developer | React | Node.js | UI/UX Enthusiast
+
+I’m a passionate and driven Full-Stack Developer B.Tech student of Global Institute of Technology, Jaipur. With hands-on experience in frontend and React-based frameworks, I’ve worked on real-world projects at organizations like NOI Technologies and Jewels Infosystems. Currently, I'm building and leading my own tech venture, WorkNest Technology, where I focus on creating scalable web solutions.
+
+💡 I specialize in:
+
+Frontend Development with React.js, Redux.js
+
+Backend Development using Node.js
+
+UI/UX Design for intuitive user experiences
+
+I’m always eager to collaborate on challenging tech projects, learn from the community, and grow both personally and professionally.</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-yellow-400">2+</div>
+                            <div class="text-sm text-white/70">Years Experience</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-pink-400">30+</div>
+                            <div class="text-sm text-white/70">Projects Completed</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="animate-on-scroll">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1f156f3e-072a-4a91-9e84-dda76dc7e2e9.png" alt="Animated illustration of a developer coding with floating elements like React logos, code snippets, and circuit patterns creating an energetic workspace vibe" class="rounded-lg shadow-2xl w-full max-w-md mx-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 animate-on-scroll">Skills & Technologies</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="skill-card rounded-lg p-6 text-center animate-on-scroll">
+                    <i class="fab fa-react text-4xl mb-4 text-blue-400"></i>
+                    <h3 class="font-semibold">React</h3>
+                    <p class="text-sm text-white/70">90%</p>
+                </div>
+                <div class="skill-card rounded-lg p-6 text-center animate-on-scroll">
+                    <i class="fab fa-node-js text-4xl mb-4 text-green-400"></i>
+                    <h3 class="font-semibold">JavaScript</h3>
+                    <p class="text-sm text-white/70">95%</p>
+                </div>
+                <div class="skill-card rounded-lg p-6 text-center animate-on-scroll">
+                    <i class="fab fa-css3-alt text-4xl mb-4 text-blue-500"></i>
+                    <h3 class="font-semibold">CSS3</h3>
+                    <p class="text-sm text-white/70">90%</p>
+                </div>
+                <div class="skill-card rounded-lg p-6 text-center animate-on-scroll">
+                    <i class="fab fa-html5 text-4xl mb-4 text-orange-500"></i>
+                    <h3 class="font-semibold">HTML5</h3>
+                    <p class="text-sm text-white/70">95%</p>
+                </div>
+                 <div class="skill-card rounded-lg p-6 text-center animate-on-scroll">
+                    <i class="fab fa-html5 text-4xl mb-4 text-orange-500"></i>
+                    <h3 class="font-semibold">UI/UX</h3>
+                    <p class="text-sm text-white/70">90%</p>
+                </div>
+                 <div class="skill-card rounded-lg p-6 text-center animate-on-scroll">
+                    <i class="fab fa-html5 text-4xl mb-4 text-orange-500"></i>
+                    <h3 class="font-semibold">Flutter</h3>
+                    <p class="text-sm text-white/70">80%</p>
+                </div>
+                 <div class="skill-card rounded-lg p-6 text-center animate-on-scroll">
+                    <i class="fab fa-html5 text-4xl mb-4 text-orange-500"></i>
+                    <h3 class="font-semibold">SQL</h3>
+                    <p class="text-sm text-white/70">85%</p>
+                </div>
+                 <div class="skill-card rounded-lg p-6 text-center animate-on-scroll">
+                    <i class="fab fa-html5 text-4xl mb-4 text-orange-500"></i>
+                    <h3 class="font-semibold">Node.js</h3>
+                    <p class="text-sm text-white/70">95%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Experience Section -->
+    <section id="experience" class="py-20 px-4 bg-white/5">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 animate-on-scroll">Experience</h2>
+            <div class="space-y-8">
+                <div class="bg-white/10 backdrop-blur-md rounded-lg p-6 animate-on-scroll">
+                    <h3 class="text-2xl font-semibold mb-2">React-Based Framework Intern</h3>
+                    <p class="text-sm text-white/70 mb-4">NOI Technologies | 1 Month</p>
+                    <ul class="list-disc list-inside text-white/80">
+                        <li>Developed responsive web applications using React.js and Redux.</li>
+                        <li>Collaborated with designers to implement UI/UX best practices.</li>
+                        <li>Optimized application performance and ensured cross-browser compatibility.</li>
+                        <button class ="mt-4 px-4 py-2 bg-purple-400 text-white rounded-lg"><a href="NOI.jpg">Internship Certificate</a>
+                         </button>       
+                           </ul>
+
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-lg p-6 animate-on-scroll">
+                    <h3 class="text-2xl font-semibold mb-2">Web Developer Intern</h3>
+                    <p class="text-sm text-white/70 mb-4">Jewels Infosystems | 1 Month</p>
+                    <ul class="list-disc list-inside text-white/80">
+                        <li>Assisted in the development of e-commerce websites using HTML, CSS, and JavaScript.</li>
+                        <li>Maintained and updated existing web applications based on client feedback.</li>
+                        <li>Participated in code reviews and team meetings to enhance project quality.</li>
+                   <button class ="mt-4 px-4 py-2 bg-purple-400 text-white rounded-lg"><a href="NOI1.jpg">Internship Letter</a>
+                         </button>
+                         <button class ="mt-4 px-4 py-2 bg-purple-400 text-white rounded-lg"><a href="NOI2.jpg">Internship Certificate</a>
+                         </button>
+                    </ul>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-lg p-6 animate-on-scroll">
+                    <h3 class="text-2xl font-semibold mb-2">Founder & Lead Developer</h3>
+                    <p class="text-sm text-white/70 mb-4">WorkNest Technology | March 2025 - Present</p>
+                    <ul class="list-disc list-inside text-white/80">
+                        <li>Founded a tech startup focused on developing innovative web solutions.</li>
+                        <li>Led a team of developers to create scalable web applications using MERN stack.</li>
+                        <li>Implemented agile methodologies to streamline project workflows and improve team collaboration.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Projects Section -->
+
+
+    <section id="projects" class="py-20 px-4 bg-white/5">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 animate-on-scroll">My Projects</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="project-card bg-white/10 backdrop-blur-md rounded-lg overflow-hidden">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/76ff8aaa-69b7-40de-961a-eeafc68406b3.png" alt="Sleek e-commerce website interface with animated product cards, shopping cart icons, and smooth hover transitions showcasing modern online retail design" class="w-full h-49 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">E-Commerce Site</h3>
+                        <p class="text-white/80 mb-4">Built with React, featuring product catalog and shopping cart</p>
+                        <div class="flex gap-2">
+                            <span class="bg-blue-500 px-2 py-1 rounded text-xs">React</span>
+                            <span class="bg-green-500 px-2 py-1 rounded text-xs">Redux</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card bg-white/10 backdrop-blur-md rounded-lg overflow-hidden">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/88b838bf-a5db-41e5-b47c-fa17d676740f.png" alt="Interactive weather app dashboard displaying animated weather icons, temperature charts, and dynamic background changes based on current weather conditions" class="w-full h-49 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Weather App</h3>
+                        <p class="text-white/80 mb-4">Real-time weather data with animated visualizations</p>
+                        <div class="flex gap-2">
+                            <span class="bg-blue-500 px-2 py-1 rounded text-xs">React</span>
+                            <span class="bg-yellow-500 px-2 py-1 rounded text-xs">API</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card bg-white/10 backdrop-blur-md rounded-lg overflow-hidden">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/29cf6a8d-b7af-4c7a-aeee-937139797015.png" alt="Creative portfolio site with scrolling animations, parallax effects, and interactive hover elements creating an engaging user experience" class="w-full h-50 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Portfolio Site</h3>
+                        <p class="text-white/80 mb-4">Modern design with smooth animations and interactions</p>
+                        <div class="flex gap-2">
+                            <span class="bg-blue-500 px-2 py-1 rounded text-xs">React</span>
+                            <span class="bg-purple-500 px-2 py-1 rounded text-xs">GSAP</span>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="project-card bg-white/10 backdrop-blur-md rounded-lg overflow-hidden">
+                    <img src="order.png" alt="Interactive order management system dashboard displaying animated order status updates, customer interactions, and dynamic background changes based on current order conditions" class="w-full h-50 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">Order Management System</h3>
+                        <p class="text-white/80 mb-4">Developed a responsive web-based Order Management System to manage and track customer orders.</p>
+                        <div class="flex gap-2">
+                            <span class="bg-blue-500 px-2 py-1 rounded text-xs">React</span>
+                            <span class="bg-yellow-500 px-2 py-1 rounded text-xs">API</span>
+                        </div>
+                    </div>
+                </div>
+             <div class="project-card bg-white/10 backdrop-blur-md rounded-lg overflow-hidden">
+                    <img src="1.png" alt="Interactive order management system dashboard displaying animated order status updates, customer interactions, and dynamic background changes based on current order conditions" class="w-full h-50 object-cover">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">WorkNest Technology</h3>
+                        <p class="text-white/80 mb-4">Startup project focused on developing innovative solutions for remote work.</p>
+                        <div class="flex gap-2">
+                            <span class="bg-blue-500 px-2 py-1 rounded text-xs">React</span>
+                            <span class="bg-yellow-500 px-2 py-1 rounded text-xs">API</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Certification Section -->
+    <section id="certifications" class="py-20 px-4  ">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold  animate-on-scroll">Certifications</h2>
+            <ul class="space-y-6">
+                  <li class="bg-white/10 backdrop-blur-md rounded-lg p-6">
+                    <h3 class="font-semibold"> UI/UX </h3>
+                    <p class="text-sm text-white/70">Issued by Udemy Institute | Feb 2025</p>
+                </li>
+                <li class="bg-white/10 backdrop-blur-md rounded-lg p-6">
+                    <h3 class="font-semibold"> Full-Stack Web Development Bootcamp</h3>
+                    <p class="text-sm text-white/70">Issued by Udemy Institute | Aug 2025</p>
+                </li>
+              
+                <li class="bg-white/10 backdrop-blur-md rounded-lg p-6">
+                    <h3 class="font-semibold">Flutter Development</h3>
+                    <p class="text-sm text-white/70">Issued by Udemy Institute | Aug 2025</p>
+                </li>
+                 <li class="bg-white/10 backdrop-blur-md rounded-lg p-6">
+                    <h3 class="font-semibold">CodeFiesta Hackathon 3.0</h3>
+                    <p class="text-sm text-white/70">Issued by Global Institute of Technology | Oct 2024</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+   <!-- Contact Section Me -->
+    <section id="contact" class="py-20 px-4">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-12 animate-on-scroll">Contact Me</h2>
+            <form name="" id="contactForm" class="contact-form max-w-md mx-auto space-y-6">
+                <div>
+                    <input type="text" name="Name" placeholder="Your Name" class="w-full p-4 rounded-lg text-purple-600" required>
+                </div>
+                <div>
+                    <input type="email" name="Email" placeholder="Your Email" class="w-full p-4 rounded-lg text-purple-600" required>
+                </div>
+                <div>
+                    <textarea name="Message" rows="4" placeholder="Your Message" class="w-full p-4 rounded-lg text-purple-600" required></textarea>
+                </div>
+                <button type="submit" class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300">Send Message</button>
+            </form>
+              <div class="bg-white/9 backdrop-blur-md rounded-lg p-6 animate-on-scroll">
+                    <h3 class="text-2xl font-semibold mb-2">Get in Touch</h3>
+                    <p class="text-sm text-white/70 mb-4">Feel free to reach out for collaborations or just a chat!</p>
+               
+             <a href="tel:8094101384" class="border  border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition duration-300">Contact</a>
+                 <a href="mailto:gharwalrohit@gmail.com" class="border border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition duration-300">Email us</a>
+     
+        </div>
+        <div class="bg-white/9 backdrop-blur-md rounded-lg p-6 animate-on-scroll">
+                <a href="https://www.linkedin.com/in/rohit-singh-rajput-0940a230a/" class="border border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition duration-300">LinkedIn</a>
+        
+               <a href="https://github.com/Rohitsinghrajput966" class="border border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition duration-300">Github</a>
+              
+</div>
+        
+        <div class="bg-white/9 backdrop-blur-md rounded-lg p-6 animate-on-scroll">
+
+         <a href="https://www.instagram.com/rohit_rajput_966?igsh=MTczYmthNjhzbmFzZA==" class="border border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition duration-300">Instagram</a></div>
+               </div>
+               </div>
+    </section>
+    <!--Contact Section
+    <section id="Contact" class="py-20 px-4 bg-white/5">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-12 animate-on-scroll">Contact</h2>
+            <div class="space-y-8">
+                <div class="bg-white/10 backdrop-blur-md rounded-lg p-6 animate-on-scroll">
+                    <h3 class="text-2xl font-semibold mb-2">Get in Touch</h3>
+                    <p class="text-sm text-white/70 mb-4">Feel free to reach out for collaborations or just a chat!</p>
+                <a href="tel:8094101384" class="border border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition duration-300">Contact</a> 
+               <a href="mailto:gharwalrohit@gmail.com" class="border border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition duration-300">Email us</a>
+               <a href="https://www.linkedin.com/in/rohit-singh-rajput-0940a230a/" class="border border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition duration-300">LinkedIn</a>
+               <a href="https://github.com/Rohitsinghrajput966" class="border border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition duration-300">Github</a>
+               <a href="https://www.instagram.com/rohit_rajput_966?igsh=MTczYmthNjhzbmFzZA==" class="border border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition duration-300">Instagram</a>
+                </div>
+            </div>
+            </div>
+        </div>
+            <section>
+            -->
+
+    <!-- Footer -->
+    <footer class="text-center py-6 bg-black/10 backdrop-blur-md border-t border-white/10 mt-12">
+        <p>@Copyright ROHIT SINGH RAJPUT </p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        function closeMenu() {
+            mobileMenu.classList.add('hidden');
+        }
+
+        // Animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! I\'ll get back to you soon.');
+            this.reset();
+        });
+
+        // Typing effect on load
+        const heroText = document.querySelector('#hero h1');
+        let i = 0;
+        const txt = 'Hi, I\'m ROHIT SINGH RAJPUT'; // The text to type
+        const speed = 100;
+
+        function typeWriter() {
+            if (i < txt.length) {
+                heroText.innerHTML = txt.substring(0, i + 1);
+                i++;
+                setTimeout(typeWriter, speed);
+            }
+        }
+
+        setTimeout(typeWriter, 500);
+
+        // Particle effect (simple)
+        const canvas = document.createElement('canvas');
+        canvas.id = 'particleCanvas';
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.zIndex = '-1';
+        document.body.appendChild(canvas);
+
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        for(let i = 0; i < 100; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 2,
+                vy: (Math.random() - 0.5) * 2,
+                size: Math.random() * 3
+            });
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.fill();
+                
+                p.x += p.vx;
+                p.y += p.vy;
+                
+                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+
+        // Resize canvas
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+
+
+
+
+</body>
+</html>
+</create_file>
